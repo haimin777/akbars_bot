@@ -1,0 +1,108 @@
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- inform
+- test
+- affirm
+- request_credit:
+    use_entities: []
+- greet
+- goodbye
+- chitchat:
+    use_entities: []
+- deny
+- bot_challenge
+entities:
+- birth_data
+- data
+- fio
+- telephone
+slots:
+  birth_date:
+    type: unfeaturized
+    auto_fill: false
+  data:
+    type: unfeaturized
+    auto_fill: false
+  fio:
+    type: unfeaturized
+    auto_fill: false
+  requested_slot:
+    type: unfeaturized
+  telephone:
+    type: unfeaturized
+    auto_fill: false
+responses:
+  utter_ask_data:
+  - text: Ведите тестовые данные
+  utter_ask_fio:
+  - text: Напишите Ваши фамилию, имя, отчество
+  utter_ask_birth_date:
+  - text: Когда Вы родились
+  utter_ask_telephone:
+  - text: Ваш телефон для связи, пожалуйста.
+  utter_submit:
+  - text: Все верно!
+  utter_slots_values:
+  - text: "Я собираюсь сформировать заявку со следующими параметрами:\n - ФИО: {fio}\n\
+      \ - Дата рождения: {birth_date}\n - Телефон для связи: {telephone}\n "
+  utter_noworries:
+  - text: Спасибо Вам :)
+  utter_chitchat:
+  - text: chitchat
+  utter_ask_continue:
+  - text: do you want to continue?
+  utter_wrong_cuisine:
+  - text: cuisine type is not in the database, please try again
+  utter_wrong_num_people:
+  - text: number of people should be a positive integer, please try again
+  utter_wrong_outdoor_seating:
+  - text: could not convert input to boolean value, please try again
+  utter_default:
+  - text: sorry, I didn't understand you, please try input something else
+  utter_greet:
+  - text: Hello! I am restaurant search assistant! How can I help?
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_restart:
+  - text: restarted
+actions:
+- utter_ask_birth_date
+- utter_ask_continue
+- utter_ask_data
+- utter_ask_fio
+- utter_ask_telephone
+- utter_chitchat
+- utter_default
+- utter_greet
+- utter_iamabot
+- utter_noworries
+- utter_restart
+- utter_slots_values
+- utter_submit
+- utter_wrong_cuisine
+- utter_wrong_num_people
+- utter_wrong_outdoor_seating
+forms:
+- credit_form:
+    fio:
+    - type: from_entity
+      entity: fio
+      not_intent: chitchat
+    birth_date:
+    - type: from_entity
+      entity: birth_date
+      intent:
+      - inform
+    telephone:
+    - type: from_entity
+      entity: telephone
+      intent:
+      - inform
+- test_form:
+    data:
+    - type: from_entity
+      entity: data
+      intent:
+      - inform
